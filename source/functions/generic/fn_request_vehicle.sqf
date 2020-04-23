@@ -1,4 +1,4 @@
-diag_log "DUWS-R: dialog/request_vehicle.sqf running...";
+diag_log "DUWS-N: dialog/request_vehicle.sqf running...";
 
 _index = lbCurSel 2102;
 

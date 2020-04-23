@@ -2,7 +2,7 @@ class CfgCommunicationMenu
 {
     class DynamicSupportMenu
     {
-        text = "DUWS-R Support"; // Text displayed in the menu and in a notification
+        text = "DUWS-N Support"; // Text displayed in the menu and in a notification
         submenu = ""; // Submenu opened upon activation
         expression = "_null = [] spawn duws_fnc_dynamic_menu"; // Code executed upon activation (ignored when the submenu is not empty)
         icon = "\a3\Ui_f\data\GUI\Cfg\CommunicationMenu\call_ca.paa"; // Icon displayed permanently next to the command menu
@@ -12,7 +12,7 @@ class CfgCommunicationMenu
     };
     class DUWSAdminMenu
     {
-        text = "DUWS-R Admin";
+        text = "DUWS-N Admin";
         submenu = "#USER:ADMIN_MENU";
         expression = "";
         icon = "\a3\Ui_f\data\GUI\Cfg\CommunicationMenu\call_ca.paa";

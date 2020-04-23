@@ -1,4 +1,4 @@
-diag_log format ["------------------ DUWS-R START ----v0------ player: %1", profileName];
+diag_log format ["------------------ DUWS-N START ----v0------ player: %1", profileName];
 
 
 if (isDedicated) exitWith {};
@@ -182,9 +182,9 @@ if (!isMultiplayer) then {
 };
 
 // Create help for DUWS
-_index = player createDiarySubject ["help","DUWS-R Manual"];
+_index = player createDiarySubject ["help","DUWS-N Manual"];
 player createDiaryRecord ["help", ["Feedback/bug report", "Internal team members: Use the ""issues"" section to report items."]];
-player createDiaryRecord ["help", ["Export to another island", "<font color='#FF0000'>How to export to another island:</font color><br />You just need to take the .pbo file and rename it with the name of the island you want to export the mission to. You don't have anything else to do<br /><br />Example:<br />SP_DUWS-R.stratis.pbo >>> SP_DUWS-R.chernarus.pbo"]];
+player createDiaryRecord ["help", ["Export to another island", "<font color='#FF0000'>How to export to another island:</font color><br />You just need to take the .pbo file and rename it with the name of the island you want to export the mission to. You don't have anything else to do<br /><br />Example:<br />SP_DUWS-N.stratis.pbo >>> SP_DUWS-N.chernarus.pbo"]];
 player createDiaryRecord ["help", ["Credits", "Many thanks goes out to everyone that worked on the original DUWS by kibot!"]];
 player createDiaryRecord ["help", ["Command Points (CP)", "Command points are used to purchase vehicles, units and ask for support (like artillery or save the game outside the base). To obtain Command points, you must capture the enemy controlled zones (red zones on the map) or execute side missions. You also receive 3 command points for each zone you have under your control every 30 minutes."]];
 player createDiaryRecord ["help", ["Army Power (AP)", "Army power represent the strenght of the BLUFOR forces present on the island. By capturing enemy positions and accomplishing side missions, you will add Army Power to your army. The attack waves of the BLUFOR army will become stronger."]];
@@ -212,7 +212,7 @@ if (isMultiplayer) then {
 if (isMultiplayer) then {
     [] spawn {
         waitUntil {time > 5};
-        ["info",["MP Mechanics","Check the manual for the specifics of the DUWS-R in MP"]] call bis_fnc_showNotification;
+        ["info",["MP Mechanics","Check the manual for the specifics of the DUWS-N in MP"]] call bis_fnc_showNotification;
     };
 };
 

@@ -16,7 +16,7 @@ if (commandpointsblu1 >= _requiredPoints) then {
             vehic addEventHandler ["IncomingMissile", {
                 _target = _this select 0;
                 _attacker = _this select 3;
-                diag_log format ["DUWS-R: MWS Event Fired for %1", _target];
+                diag_log format ["DUWS-N: MWS Event Fired for %1", _target];
                 if(player in crew (_target)) then {
                     _target say2D ["alarmCar", 100, 1];
                     _azi = (_target) getDir (_attacker);

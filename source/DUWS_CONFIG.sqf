@@ -1,4 +1,4 @@
-// DUWS-R Config
+// DUWS-N Config
 
 DUWS_Version = "0.7.0";           //Do not touch
 
