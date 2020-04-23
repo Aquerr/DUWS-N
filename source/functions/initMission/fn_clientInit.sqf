@@ -45,10 +45,7 @@ if (isMultiplayer) then {
         } forEach (Array_of_FOBS);
     };
 
-    PlayerKilledEH = player addEventHandler ["killed", {
-        commandpointsblu1 = commandpointsblu1 - DUWSMP_CP_death_cost;
-        publicVariable "commandpointsblu1";
-    }];
+
 
     PlayerBetrayerEH = player addEventHandler ["HandleRating", {
         // If playerRating is negative (traitor) then reset to zero

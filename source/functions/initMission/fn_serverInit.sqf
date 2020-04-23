@@ -79,19 +79,19 @@ zones_min_radius = 200; // Determine the minium radius a generated zone can have
 
 
 // nber of missions succes(!!dont touch!!)
-missions_success = 0;publicVariable "missions_success";
+missions_success = 0; publicVariable "missions_success";
 
-zones_created = false;publicVariable "zones_created";
-blu_hq_created = false;publicVariable "blu_hq_created";
-can_get_mission = true;publicVariable "can_get_mission";
-failsafe_zones_not_found = false;publicVariable "failsafe_zones_not_found";
+zones_created = false; publicVariable "zones_created";
+blu_hq_created = false; publicVariable "blu_hq_created";
+can_get_mission = true; publicVariable "can_get_mission";
+failsafe_zones_not_found = false; publicVariable "failsafe_zones_not_found";
 createcenter sideLogic;
-LogicGroup = createGroup SideLogic;publicVariable "LogicGroup";
-locator_hq_actived = false;publicVariable "locator_hq_actived";
-op_zones_index = 0;publicVariable "op_zones_index";
-clientisSync = false;publicVariable "clientisSync";
-fobSwitch = false;publicVariable "fobSwitch";
-player_is_choosing_hqpos = false;publicVariable "player_is_choosing_hqpos";
+LogicGroup = createGroup SideLogic; publicVariable "LogicGroup";
+locator_hq_actived = false; publicVariable "locator_hq_actived";
+op_zones_index = 0; publicVariable "op_zones_index";
+clientisSync = false; publicVariable "clientisSync";
+fobSwitch = false; publicVariable "fobSwitch";
+player_is_choosing_hqpos = false; publicVariable "player_is_choosing_hqpos";
 
 if (isNil "amount_zones_created") then {
     amount_zones_created = 0;
@@ -192,6 +192,11 @@ publicVariable "Array_of_FOBname";
 
 game_master = ["player1"];
 publicVariable "game_master";
+
+PlayerKilledEH = player addEventHandler ["killed", {
+    commandpointsblu1 = commandpointsblu1 - DUWSMP_CP_death_cost;
+    publicVariable "commandpointsblu1";
+}];
 
 addMissionEventHandler ["EntityRespawned", {
     params ["_entity", "_corpse"];
