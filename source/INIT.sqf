@@ -1,2 +1,4 @@
-serverInitHandle = [] spawn duws_fnc_serverInit;
-[] spawn duws_fnc_clientInit;
+[] spawn duws_fnc_serverInit;
+if (hasInterface) then {
+    [] spawn duws_fnc_clientInit;
+}
