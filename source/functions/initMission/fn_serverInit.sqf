@@ -193,9 +193,12 @@ publicVariable "Array_of_FOBname";
 game_master = ["player1"];
 publicVariable "game_master";
 
-PlayerKilledEH = player addEventHandler ["killed", {
-    commandpointsblu1 = commandpointsblu1 - DUWSMP_CP_death_cost;
-    publicVariable "commandpointsblu1";
+addMissionEventHandler ["EntityKilled", {
+    params ["_unit", "_killer", "_instigator", "_useEffects"];
+    if(isPlayer _unit) then {
+        commandpointsblu1 = commandpointsblu1 - DUWSMP_CP_death_cost;
+        publicVariable "commandpointsblu1";
+    }
 }];
 
 addMissionEventHandler ["EntityRespawned", {
