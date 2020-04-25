@@ -77,121 +77,7 @@ zones_min_radius = 200; // Determine the minium radius a generated zone can have
 // Keep that in mind when tweaking the zones amount/radius value.
 /////////////////////////////////////////////////////////
 
-
-// nber of missions succes(!!dont touch!!)
-missions_success = 0; publicVariable "missions_success";
-
-zones_created = false; publicVariable "zones_created";
-blu_hq_created = false; publicVariable "blu_hq_created";
-can_get_mission = true; publicVariable "can_get_mission";
-failsafe_zones_not_found = false; publicVariable "failsafe_zones_not_found";
-createcenter sideLogic;
-LogicGroup = createGroup SideLogic; publicVariable "LogicGroup";
-locator_hq_actived = false; publicVariable "locator_hq_actived";
-op_zones_index = 0; publicVariable "op_zones_index";
-clientisSync = false; publicVariable "clientisSync";
-fobSwitch = false; publicVariable "fobSwitch";
-player_is_choosing_hqpos = false; publicVariable "player_is_choosing_hqpos";
-
-if (isNil "amount_zones_created") then {
-    amount_zones_created = 0;
-};
-
-publicVariable "amount_zones_created";
-
-if (isNil "HQ_pos_found_generated") then {
-    HQ_pos_found_generated = false;
-};
-
-publicVariable "HQ_pos_found_generated";
-
-if (isNil "chosen_settings") then {
-    chosen_settings = false;
-};
-
-publicVariable "chosen_settings";
-
-if (isNil "chosen_hq_placement") then {
-    chosen_hq_placement = false;
-};
-
-publicVariable "chosen_hq_placement";
-
-if (isNil "zoneundercontrolblu") then {
-    zoneundercontrolblu = 0;
-};
-
-publicVariable "zoneundercontrolblu";
-
-if (isNil "amount_zones_captured") then {
-    amount_zones_captured = 0;
-};
-
-publicVariable "amount_zones_captured";
-
-if (isNil "savegameNumber") then {
-    savegameNumber = 0;
-};
-
-publicVariable "savegameNumber";
-
-if (isNil "capturedZonesNumber") then {
-    capturedZonesNumber = 0;
-};
-
-publicVariable "capturedZonesNumber";
-
-if (isNil "finishedMissionsNumber") then {
-    finishedMissionsNumber = 0;
-};
-
-publicVariable "finishedMissionsNumber";
-
-if (isNil "OvercastVar") then {
-    OvercastVar = 0;
-};
-
-publicVariable "OvercastVar";
-
-if (isNil "FogVar") then {
-    FogVar = 0;
-};
-
-publicVariable "FogVar";
-
-if (isNil "createzone_server") then {
-    createzone_server = false;
-};
-
-publicVariable "createzone_server";
-
-if (isNil "mission_number_of_zones_captured") then {
-    mission_number_of_zones_captured = 0;
-};
-
-publicVariable "mission_number_of_zones_captured";
-
-// this is a special one (if/else)
-if (isNil "Array_of_FOBS") then {
-    // if the player is sp or server or no fobs have been created
-    Array_of_FOBS = [];
-}
-else /// JIP for the client
-{
-    {
-        [_x] call duws_fnc_FOBactions;
-    } forEach Array_of_FOBS;
-};
-
-if (isNil "Array_of_FOBname") then {
-    Array_of_FOBname = [];
-};
-
-publicVariable "Array_of_FOBS";
-publicVariable "Array_of_FOBname";
-
-game_master = ["player1"];
-publicVariable "game_master";
+[] call duws_fnc_setupServerVariables;
 
 addMissionEventHandler ["EntityKilled", {
     params ["_unit", "_killer", "_instigator", "_useEffects"];
@@ -217,7 +103,7 @@ addMissionEventHandler ["EntityRespawned", {
     true;
 }];
 
-//Event that will give FOB support command option to new leaders if it is available.
+//This event handler will give FOB support command option to new leaders if FOBs are available.
 addMissionEventHandler ["TeamSwitch", {
 	params ["_previousUnit", "_newUnit"];
 	if(zoneundercontrolblu > 1) then {
@@ -225,6 +111,7 @@ addMissionEventHandler ["TeamSwitch", {
             _slot_name = vehicleVarName _entity;
             if(_slot_name in game_master) then {
                 [_newUnit, "fob_support"] remoteExecCall ["BIS_fnc_addCommMenuItem", 0, true];
+                [_newUnit, "sitrep"] remoteExecCall ["BIS_fnc_addCommMenuItem", 0, true];
             };
         };
 	};
@@ -242,27 +129,20 @@ addMissionEventHandler ["HandleDisconnect", {
     true;
 }];
 
-//addMissionEventHandler ["EntityKilled", {
-//    params ["_unit", "_killer", "_instigator", "_useEffects"];
-//    [_unit] call {
-//        params ["_one"];
-//        [("Removing..." + (str _one))] remoteExec ["systemChat", 0];
-//        [_one] remoteSp duws_fnc_removeDeadEntity;
-//    };
-//}];
-
-//Dead entity removal task
+//Dead units removal task
 //TODO: Fix this code...
-//[] spawn {
-//    ["Started Dead Units Removal Task", "systemChat", true, true] call BIS_fnc_MP;
-//    waitUntil {
-//        _until = diag_tickTime + (DUWS_Dead_Units_Removal_Time);
-//        [("Removing time: " + (str _until)), "systemChat", true, true] call BIS_fnc_MP;
-//        waitUntil {sleep 1; diag_tickTime > _until;};
-//        call duws_fnc_removeDeadEntities;
-//        false;
-//    };
-//};
+[] spawn {
+    ["Started dead units removal task", "systemChat", true, true] call BIS_fnc_MP;
+    _time = DUWS_Dead_Units_Removal_Time;
+    while {true} do {
+        _time = _time - 1;
+        if(_time < 1) then {
+            ["Removing dead units...", "systemChat", true, true] call BIS_fnc_MP;
+            [] remoteExec duws_fnc_removeDeadEntities;
+            _time = DUWS_Dead_Units_Removal_Time;
+        }
+    };
+};
 
  waitUntil {chosen_settings && createzone_server};
 

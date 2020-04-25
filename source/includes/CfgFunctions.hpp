@@ -15,7 +15,9 @@ class CfgFunctions
             {
                 //preInit = 1;
             };
-            class DUWS_CONFIG
+            class setupServerVariables {};
+            // [] call duws_fnc_setupServerVariables
+             class DUWS_CONFIG
             {
                 preInit = 1;
                 file = "DUWS_CONFIG.sqf";

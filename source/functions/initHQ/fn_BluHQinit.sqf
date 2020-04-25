@@ -20,7 +20,10 @@ str(_markername) setMarkerText "Main base";
 
 // make HQ zone notification trigger
 _trg5=createTrigger["EmptyDetector",_hqblu];
-_trg5 triggerAttachVehicle [player];
+{
+    _trg5 triggerAttachVehicle [_x];
+} forEach allPlayers;
+//_trg5 triggerAttachVehicle [player];
 _trg5 setTriggerArea[100,100,0,false];
 _trg5 setTriggerActivation["VEHICLE","PRESENT",true];
 _trg5 setTriggerStatements["this", format["[""%1"",thislist] spawn duws_fnc_enterlocation",'Main Base'], ""];
@@ -99,6 +102,14 @@ if (!zones_manually_placed) then {
 player allowDamage true;
 if (debugmode) exitWith {};
 
+//Give leader players sitrep command
 if (isServer) then {
-    _sitrep = [player,"sitrep"] call BIS_fnc_addCommMenuItem;
+    {
+         if ((leader group _entity == leader _entity)) then {
+            _slot_name = vehicleVarName _entity;
+            if (_slot_name in game_master) then {
+                _sitrep = [_x, "sitrep"] call BIS_fnc_addCommMenuItem;
+            };
+        };
+    } forEach allPlayers;
 };

@@ -1,7 +1,5 @@
 diag_log format ["------------------ DUWS-N START ----v0------ player: %1", profileName];
 
-
-if (isDedicated) exitWith {};
 waitUntil {!isNull player};
 
 player allowDamage false;
@@ -12,7 +10,7 @@ player allowDamage false;
 #include "..\..\includes\supports_init.hpp"
 #include "..\..\includes\squad_number_init.hpp"
 
-if (hasInterface) then {[] spawn duws_fnc_gps_marker;};
+[] spawn duws_fnc_gps_marker;
 if (!isMultiplayer) then {
     getsize_script = [player] spawn duws_fnc_mapsize;
 };
