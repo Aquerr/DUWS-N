@@ -46,7 +46,7 @@ while {!_found} do
         ["Unable to find zones, please restart the mission and try:\n\n-Reducing the maximum radius of the zones\n-Reducing the amount of created zones\n-Increasing the maxiumum distance of created zones from the HQ", "silentHint", true, true] spawn BIS_fnc_MP;
         //hintSilent "Unable to find zones, please restart the mission and try:\n\n-Reducing the maximum radius of the zones\n-Reducing the amount of created zones\n-Increasing the maxiumum distance of created zones from the HQ";
         failsafe_zones_not_found = false;
-        chosen_settings = false;
+        CHOSEN_SETTINGS = false;
         sleep 1;
         };
         };     // END OF FAILSAFE EXECUTION, RESET OVER.

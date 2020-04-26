@@ -1,9 +1,9 @@
 _loop = true;
 
-waitUntil {chosen_settings};
+waitUntil {CHOSEN_SETTINGS};
 sleep 1800;
 
-while {_loop} do  
+while {_loop} do
 {
     waitUntil {daytime < 1 or daytime > 2};
     playmusic "wasteland";

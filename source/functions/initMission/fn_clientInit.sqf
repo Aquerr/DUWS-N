@@ -93,12 +93,12 @@ if (isMultiplayer) then {
     };
 
     [(format ["Game Master: %1", game_master]), "globalChat", true, true] call BIS_fnc_MP;
-    [(format ["HQ_pos_found_generated: %1", HQ_pos_found_generated]), "globalChat", true, true] call BIS_fnc_MP;
+    [(format ["HQ is generated: %1", HQ_IS_GENERATED]), "globalChat", true, true] call BIS_fnc_MP;
 
     //player globalChat format ["gamemaster: %1", game_master];
     //player globalChat format ["HQ_pos_found_generated: %1", HQ_pos_found_generated];
 
-    if (!isDedicated && !HQ_pos_found_generated) then { // SERVER INIT
+    if (!isDedicated && !HQ_IS_GENERATED) then { // SERVER INIT
         if (((vehiclevarname player) in game_master)) then {
             DUWS_host_start = false;
             publicVariable "DUWS_host_start";
@@ -114,18 +114,11 @@ if (isMultiplayer) then {
     };
 };
 
-if (!isDedicated && !HQ_pos_found_generated) then {
+if (!isDedicated && !HQ_IS_GENERATED) then {
     if (((vehiclevarname player) in game_master)) then {
         [] spawn duws_fnc_placement;
-        waitUntil {chosen_hq_placement};
-        player globalChat format ["hq_manually_placed: %1", hq_manually_placed];
-        player globalChat format ["player_is_choosing_hqpos: %1", player_is_choosing_hqpos];
-        // create random HQ
-        if (!hq_manually_placed && !player_is_choosing_hqpos) then {
-            player globalChat "lance recherche position...";
-            hq_create = [20, 0.015] spawn duws_fnc_locatorhq;
-            waitUntil {scriptDone hq_create};
-        };
+        waitUntil {HQ_IS_GENERATED};
+        player globalChat format ["Hq placed manually: %1", HQ_MANUALLY_PLACED];
     };
 };
 
@@ -147,11 +140,11 @@ if (hasInterface) then {
     // WHEN CLIENT CONNECTS INIT (might need sleep)
     waitUntil {isPlayer Player};
     hintsilent "Waiting for the host to find an HQ...";
-    waitUntil {HQ_pos_found_generated && time > 0.1};
+    waitUntil {HQ_IS_GENERATED && time > 0.1};
     player setpos [(getpos hq_blu1 select 0),(getpos hq_blu1 select 1)+10];
     _drawicon = [] spawn duws_fnc_drawIcon;
     hintsilent "Waiting for the host to select the campaign parameters...";
-    waitUntil {chosen_settings};
+    waitUntil {CHOSEN_SETTINGS};
     [hq_blu1] call duws_fnc_HQaddactions;
     sleep 1;
     player setdamage 0;
@@ -216,7 +209,7 @@ capture_island_obj = player createSimpleTask ["taskIsland"];
 capture_island_obj setSimpleTaskDescription ["The ennemy is controlling the island, we must take it back! Capture every zone under enemy control and the mission will succeed.<br />You can let your BLUFOR forces take the island by themselves and help them getting a bigger army by accomplishing side missions. Or you can capture the zones yourself and do all the big work. As the campaign progress, the war will escalate and the armies will get stronger and start to use bigger guns.<br />To capture a zone, you need to have more units inside the zone than the enemy.<br /><br />It's up to you on how you want to play this.<br />Good luck, soldier!","Take the island",""];
 
 if (mission_DUWS_firstlaunch) then {
-    waitUntil {chosen_settings};
+    waitUntil {CHOSEN_SETTINGS};
     sleep 8;
     ["info",["Buying troops","Go talk to your commander to buy troops and vehicles with CP"]] call bis_fnc_showNotification;
     sleep 2.5;

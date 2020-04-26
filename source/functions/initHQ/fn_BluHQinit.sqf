@@ -68,16 +68,16 @@ player setpos _hqblu;
 sleep 0.1;
 
 // BROADCAST, TELL THE HQ POS IS FOUND
-HQ_pos_found_generated = true;
-publicVariable "HQ_pos_found_generated";
+HQ_IS_GENERATED = true;
+publicVariable "HQ_IS_GENERATED";
 
 if (!zones_manually_placed) then {
 
     // SHOW THE STARTUP MENU
     if (!zones_created) then {
         sleep 0.1;
-        [] spawn duws_fnc_startup;
-        waitUntil {chosen_settings};  // WAIT UNTIL THE PLAYER HAS CHOSEN THE SETTINGS
+        [] spawn duws_fnc_showStartupDialog;
+        waitUntil {CHOSEN_SETTINGS};  // WAIT UNTIL THE PLAYER HAS CHOSEN THE SETTINGS
     };
 
     // WEATHER INIT

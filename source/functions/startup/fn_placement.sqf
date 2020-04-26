@@ -1,5 +1,4 @@
 waitUntil {time > 1};
 _handle = createDialog "startup_hq_placement_dialog";
 waitUntil {dialog};
-if (chosen_hq_placement or player_is_choosing_hqpos) exitWith {closeDialog 0};
- 
+if (HQ_IS_GENERATED or HQ_MANUALLY_PLACED) exitWith {closeDialog 0};

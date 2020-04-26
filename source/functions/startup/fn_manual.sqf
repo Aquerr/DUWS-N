@@ -1,10 +1,6 @@
-player_is_choosing_hqpos = true;
-//chosen_hq_placement = true;
-
 clicked = false;
-
 OnMapSingleClick "ClickedPos = _pos; clicked = true;";
-openMap [true, true]; 
+openMap [true, true];
 hint "Click somewhere on the island to place the HQ";
 
 while {true} do {
@@ -21,11 +17,12 @@ while {true} do {
             onMapSingleClick "";
             hint "Valid pos, creating HQ";
             openMap [false, false];
-            chosen_hq_placement = true;
             [_foundPickupPos] spawn duws_fnc_BluHQinit;
+            HQ_MANUALLY_PLACED = true;
+            HQ_IS_GENERATED = true;
         };
     };
 
     sleep 0.2;
-    if (chosen_hq_placement) exitwith {};
+    if (HQ_IS_GENERATED) exitwith {};
 };

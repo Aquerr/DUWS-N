@@ -35,20 +35,17 @@ publicVariable "clientisSync";
 fobSwitch = false;
 publicVariable "fobSwitch";
 
-player_is_choosing_hqpos = false;
-publicVariable "player_is_choosing_hqpos";
+HQ_MANUALLY_PLACED = false;
+publicVariable "HQ_MANUALLY_PLACED";
 
 amount_zones_created = 0;
 publicVariable "amount_zones_created";
 
-HQ_pos_found_generated = false;
-publicVariable "HQ_pos_found_generated";
+HQ_IS_GENERATED = false;
+publicVariable "HQ_IS_GENERATED";
 
-chosen_settings = false;
-publicVariable "chosen_settings";
-
-chosen_hq_placement = false;
-publicVariable "chosen_hq_placement";
+CHOSEN_SETTINGS = false;
+publicVariable "CHOSEN_SETTINGS";
 
 zoneundercontrolblu = 0;
 publicVariable "zoneundercontrolblu";

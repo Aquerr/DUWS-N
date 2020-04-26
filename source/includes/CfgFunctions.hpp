@@ -200,9 +200,9 @@ class CfgFunctions
             // [] spawn duws_fnc_placement_closed
             class random {};
             // [] call duws_fnc_random
-            class startup {};
+            class showStartupDialog {};
             // [] spawn duws_fnc_startup
-            class startup_closed {};
+            class startupClosed {};
             // [] call duws_fnc_startup_closed
             class startup_common {};
             // [] call duws_fnc_startup_common
