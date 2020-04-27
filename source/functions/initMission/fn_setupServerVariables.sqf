@@ -4,6 +4,22 @@
 	returns: nothing
 */
 
+//________________________________________________________________________________________________________________________
+//_____________________________ MISSION PARAMETERS ______________________________
+
+_revive_activated = ["Revive", 1] call BIS_fnc_getParamValue;
+_aisReviveHeal = ["ReviveHeal", false] call BIS_fnc_getParamValue;
+if(_aisReviveHeal == 0) then {
+    AIS_REVIVE_HEAL = false;
+} else {
+    AIS_REVIVE_HEAL = true;
+};
+DUWS_MP_CP_death_cost = ["DeathPenalty", 1] call BIS_fnc_getParamValue;
+DUWS_Dead_Units_Removal_Time = ["DeadUnitsRemovalTime", 1200] call BIS_fnc_getParamValue;
+DUWS_Mission_Cooldown_Time = ["MissionCooldownTime", 60] call BIS_fnc_getParamValue;
+
+//________________________________________________________________________________________________________________________
+
 // nber of missions succes(!!dont touch!!)
 missions_success = 0;
 publicVariable "missions_success";

@@ -3,7 +3,14 @@ class Params {
         title = "Revive";
         values[] = {1,0};
         texts[] = {"YES","NO"};
-        default = true;
+        default = 1;
+    };
+
+    class ReviveHeal {
+        title = "Player is fully healed after revive";
+        values[] = {1, 0};
+        texts[] = {"True", "False"};
+        default = 1;
     };
 
     class DeathPenalty {

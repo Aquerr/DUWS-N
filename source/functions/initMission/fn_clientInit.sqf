@@ -23,11 +23,7 @@ if(staminaEnabled == 0) then {
 // IF MP
 if (isMultiplayer) then {
 
-    // Get the variables from the parameters lobby
-    _revive_activated = ["Revive", 1] call BIS_fnc_getParamValue;
-    DUWSMP_CP_death_cost = ["DeathPenalty", 1] call BIS_fnc_getParamValue;
-    DUWS_Dead_Units_Removal_Time = ["DeadUnitsRemovalTime", 1200] call BIS_fnc_getParamValue;
-    DUWS_Mission_Cooldown_Time = ["MissionCooldownTime", 60] call BIS_fnc_getParamValue;
+
     //staminaEnabled = ["Stamina", 0] call BIS_fnc_getParamValue;
 
     /*if(staminaEnabled == 0) then {
@@ -82,15 +78,9 @@ if (isMultiplayer) then {
         [missionNamespace, _createdFOB] call BIS_fnc_addRespawnPosition;
     };
 
-    if (!isServer) then {
-        "savegameNumber" addPublicVariableEventHandler {[] spawn duws_fnc_savegameClient};
-    };
-    if (!isServer) then {
-        "capturedZonesNumber" addPublicVariableEventHandler {[] call duws_fnc_persistent_stats_zones_add;}; // change the shown CP for request dialog
-    };
-    if (!isServer) then {
-        "finishedMissionsNumber" addPublicVariableEventHandler {[] call duws_fnc_persistent_stats_missions_total;}; // change the shown CP for request dialog
-    };
+    "savegameNumber" addPublicVariableEventHandler {[] spawn duws_fnc_savegameClient};
+    "capturedZonesNumber" addPublicVariableEventHandler {[] call duws_fnc_persistent_stats_zones_add;}; // change the shown CP for request dialog
+    "finishedMissionsNumber" addPublicVariableEventHandler {[] call duws_fnc_persistent_stats_missions_total;}; // change the shown CP for request dialog
 
     [(format ["Game Master: %1", game_master]), "globalChat", true, true] call BIS_fnc_MP;
     [(format ["HQ is generated: %1", HQ_IS_GENERATED]), "globalChat", true, true] call BIS_fnc_MP;
@@ -136,33 +126,31 @@ if (!isDedicated && !HQ_IS_GENERATED) then {
 // AMBIANCE LOOP
 //_nul = [] execVM "musicloop.sqf";
 
-if (hasInterface) then {
-    // WHEN CLIENT CONNECTS INIT (might need sleep)
-    waitUntil {isPlayer Player};
-    hintsilent "Waiting for the host to find an HQ...";
-    waitUntil {HQ_IS_GENERATED && time > 0.1};
-    player setpos [(getpos hq_blu1 select 0),(getpos hq_blu1 select 1)+10];
-    _drawicon = [] spawn duws_fnc_drawIcon;
-    hintsilent "Waiting for the host to select the campaign parameters...";
-    waitUntil {CHOSEN_SETTINGS};
-    [hq_blu1] call duws_fnc_HQaddactions;
-    sleep 1;
-    player setdamage 0;
-    player allowDamage true;
-    hintsilent format["Joined game, welcome to %1, %2",worldName,profileName];
+// WHEN CLIENT CONNECTS INIT (might need sleep)
+waitUntil {isPlayer Player};
+hintsilent "Waiting for the host to find an HQ...";
+waitUntil {HQ_IS_GENERATED && (time > 0.1)};
+player setpos [(getpos hq_blu1 select 0),(getpos hq_blu1 select 1)+10];
+_drawicon = [] spawn duws_fnc_drawIcon;
+hintsilent "Waiting for the host to select the campaign parameters...";
+waitUntil {CHOSEN_SETTINGS};
+[hq_blu1] call duws_fnc_HQaddactions;
+sleep 1;
+player setdamage 0;
+player allowDamage true;
+hintsilent format["Joined game, welcome to %1, %2",worldName,profileName];
 
-    // init High Command
-    [] call duws_fnc_hc_init;
-    [] spawn duws_fnc_weather_client;
+// init High Command
+[] call duws_fnc_hc_init;
+[] spawn duws_fnc_weather_client;
 
-    // process purchasable units
-    [] call duws_fnc_processUnitConfig;
-    [] call duws_fnc_processVehicleConfig;
-    [] call duws_fnc_processGroupConfig;
+// process purchasable units
+[] call duws_fnc_processUnitConfig;
+[] call duws_fnc_processVehicleConfig;
+[] call duws_fnc_processGroupConfig;
 
-    if(!staminaEnabled) then {
-        player enableStamina false;
-    };
+if(!staminaEnabled) then {
+    player enableStamina false;
 };
 
 if (!isMultiplayer) then {

@@ -39,9 +39,6 @@ if (isNil "opfor_ai_skill") then {opfor_ai_skill = [0.1,0.3];};publicVariable "o
 // set the skill range of friendly AI, from 0 to 1 (0 being completely dumb)
 if (isNil "blufor_ai_skill") then {blufor_ai_skill = [0.4,0.7];};publicVariable "blufor_ai_skill";
 
-// you must specify if you have manually placed HQ or not. false = HQ is randomly placed, true = you have manually placed the HQ
-HQ_MANUALLY_PLACED = false;
-publicVariable "HQ_MANUALLY_PLACED";
 // you must specify if you have manually placed the zones or not. false = zones are randomly generated, true = you have manually placed the zones
 zones_manually_placed = false;publicVariable "zones_manually_placed";
 zones_max_dist_from_hq = 7500;publicVariable "zones_max_dist_from_hq";
@@ -83,7 +80,7 @@ zones_min_radius = 200; // Determine the minium radius a generated zone can have
 addMissionEventHandler ["EntityKilled", {
     params ["_unit", "_killer", "_instigator", "_useEffects"];
     if(isPlayer _unit) then {
-        commandpointsblu1 = commandpointsblu1 - DUWSMP_CP_death_cost;
+        commandpointsblu1 = commandpointsblu1 - DUWS_MP_CP_death_cost;
         publicVariable "commandpointsblu1";
     }
 }];
