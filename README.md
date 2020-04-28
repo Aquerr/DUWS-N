@@ -44,7 +44,7 @@ will be available at that time. `START-R` and `START-M` allow you to place enemy
  * Several support options to unlock (UAV, Arty, Personal FLIR, VAS, ...)
  * You can define the HQ location yourself and the enemy zones, or just the HQ and let the DUWS-N generate the zones automatically. You can also let the DUWS-N create everything by itself. Basically you decide the level of randomization.
 
-**New features **
+#### New features
  * Dedicated server support
  * DUWS Admin Support Menu
  * New AI
