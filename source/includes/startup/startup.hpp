@@ -3,7 +3,7 @@ class startup_dialog
 {
     idd = -1;
     movingenable = false;
-    onUnload = "[] call duws_fnc_startup_closed"; // UI event handler
+    onUnload = "[] call duws_fnc_startupClosed"; // UI event handler
 
     class controls
     {

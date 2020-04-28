@@ -24,7 +24,9 @@ DUWS_Mission_Cooldown_Time = ["MissionCooldownTime", 60] call BIS_fnc_getParamVa
 missions_success = 0;
 publicVariable "missions_success";
 
+zones_created = false;
 publicVariable "zones_created";
+
 blu_hq_created = false;
 publicVariable "blu_hq_created";
 

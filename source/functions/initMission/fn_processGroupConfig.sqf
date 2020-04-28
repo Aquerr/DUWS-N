@@ -12,7 +12,7 @@ private _skill = blufor_ai_skill;
                 commandpointsblu1 = commandpointsblu1 - %2;
                 ctrlSetText [1000, str commandpointsblu1];
                 _group = group player ;
-                _group = [_spawnPos, WEST, %3, [], [], %4] call BIS_fnc_spawnGroup;
+                _group = [_spawnPos, west, %3, [], [], %4] call BIS_fnc_spawnGroup;
                 player hcsetgroup [_group,""];
                 hint "Squad ready !\nAccess it with [L.CTRL - SPACE]";
             }  else  {
@@ -20,9 +20,9 @@ private _skill = blufor_ai_skill;
             };
         };
     ',
-    _indexNumber, 
-    _cost, 
-    [[[_cfgGroup], ""] call BIS_fnc_configPath, "", true] call BIS_fnc_configPath, 
+    _indexNumber,
+    _cost,
+    [[[_cfgGroup], ""] call BIS_fnc_configPath, "", true] call BIS_fnc_configPath,
     if (!isnil "_skillBoolean" && {_skillBoolean}) then {_skillSF} else {_skill}];
 }
 forEach blufor_cfgGroup_array;

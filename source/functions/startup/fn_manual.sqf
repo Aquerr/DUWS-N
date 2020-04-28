@@ -1,4 +1,5 @@
 clicked = false;
+HQ_PLACEMENT_CHOOSEN = true;
 OnMapSingleClick "ClickedPos = _pos; clicked = true;";
 openMap [true, true];
 hint "Click somewhere on the island to place the HQ";
