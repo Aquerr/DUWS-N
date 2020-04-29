@@ -138,7 +138,7 @@ addMissionEventHandler ["HandleDisconnect", {
             ["Removing dead units...", "systemChat", true, true] call BIS_fnc_MP;
             [] remoteExec duws_fnc_removeDeadEntities;
             _time = DUWS_Dead_Units_Removal_Time;
-        }
+        };
     };
 };
 
