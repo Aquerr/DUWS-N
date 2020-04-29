@@ -10,7 +10,7 @@ class Params {
         title = "Player is fully healed after revive";
         values[] = {1, 0};
         texts[] = {"True", "False"};
-        default = 1;
+        default = 0;
     };
 
     class DeathPenalty {
