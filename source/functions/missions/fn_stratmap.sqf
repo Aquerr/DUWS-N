@@ -5,7 +5,7 @@ _counter = 0;
 
 if (isNil ("Mission_timeout_request")) then {Mission_timeout_request = true;};
 if (!Mission_timeout_request) exitWith {[west, "PAPA_BEAR"] SideChat "We don't have any other missions for you right now.";};
-if (!((vehicleVarName player) in game_master)) exitWith {hint "Only the host can request side missions for now"};
+if (!((vehicleVarName player) in game_master)) exitWith {hint "Only squad leaders can request side missions."};
 
 startLoadingScreen ["Loading zones..."];
 _kibot_pos_array_missionPos = [[-99999,-99999,-99999]];

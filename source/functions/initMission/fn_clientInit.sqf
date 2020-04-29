@@ -181,7 +181,7 @@ player createDiaryRecord ["operativehelp", ["Overview", "You can recruit special
 
 // MP notes
 if (isMultiplayer) then {
-    player createDiaryRecord ["help", ["MP notes", "The CP pool is common for everyone.<br /><br />While most support unlocks are indivdual, the Armory and the Specialized infantry training are common, and need to be unlocked only once by a single player.<br /><br />While everybody can rest to heal, only the host can save and skip the time.<br /><br />Only the host can request side mission and finish them. However, everyone receive the persistent stats and xp bonuses."]];
+    player createDiaryRecord ["help", ["MP notes", "The CP pool is common for everyone.<br /><br />While most support unlocks are indivdual, the Armory and the Specialized infantry training are common, and need to be unlocked only once by a single player.<br /><br />While everybody can rest to heal, only the host can save and skip the time.<br /><br />Only the squad leaders can request and complete side missions. However, everyone receive the persistent stats and xp bonuses."]];
 };
 
 // MP notification
