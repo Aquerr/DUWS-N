@@ -7,6 +7,8 @@
 //________________________________________________________________________________________________________________________
 //_____________________________ MISSION PARAMETERS ______________________________
 
+["Loading mission params...", "systemChat", true, true] call BIS_fnc_MP;
+
 _revive_activated = ["Revive", 1] call BIS_fnc_getParamValue;
 _aisReviveHeal = ["ReviveHeal", false] call BIS_fnc_getParamValue;
 if(_aisReviveHeal == 0) then {
@@ -17,6 +19,11 @@ if(_aisReviveHeal == 0) then {
 DUWS_MP_CP_death_cost = ["DeathPenalty", 1] call BIS_fnc_getParamValue;
 DUWS_Dead_Units_Removal_Time = ["DeadUnitsRemovalTime", 1200] call BIS_fnc_getParamValue;
 DUWS_Mission_Cooldown_Time = ["MissionCooldownTime", 60] call BIS_fnc_getParamValue;
+
+publicVariable "DUWS_MP_CP_death_cost";
+publicVariable "DUWS_Dead_Units_Removal_Time";
+publicVariable "DUWS_Mission_Cooldown_Time";
+publicVariable "AIS_REVIVE_HEAL";
 
 //________________________________________________________________________________________________________________________
 

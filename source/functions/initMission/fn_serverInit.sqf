@@ -75,8 +75,6 @@ zones_min_radius = 200; // Determine the minium radius a generated zone can have
 // Keep that in mind when tweaking the zones amount/radius value.
 /////////////////////////////////////////////////////////
 
-waitUntil {HQ_IS_GENERATED};
-
 [] call duws_fnc_setupServerVariables;
 
 addMissionEventHandler ["EntityKilled", {
