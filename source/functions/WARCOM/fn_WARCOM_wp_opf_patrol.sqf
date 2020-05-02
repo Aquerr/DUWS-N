@@ -9,7 +9,7 @@ _group setCombatMode "RED";
     _wp setWaypointBehaviour "SAFE";
     _wp setWaypointSpeed "LIMITED";
     _wp setWaypointCompletionRadius 40;
-    _wp setWaypointTimeout [300, 450, 600]; 
+    _wp setWaypointTimeout [450, 450, 450];
 }
 forEach WARCOM_zones_controled_by_OPFOR;
 

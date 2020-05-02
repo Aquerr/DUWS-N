@@ -4,12 +4,12 @@ _group setCombatMode "RED";
 
 
 {
-    _wp = _group addWaypoint [_x, 0];
+    _wp = _group addWaypoint [_x, 10];
     _wp setWaypointType "MOVE";
     _wp setWaypointBehaviour "SAFE";
     _wp setWaypointSpeed "LIMITED";
-    _wp setWaypointCompletionRadius 40;
-    _wp setWaypointTimeout [300, 450, 600]; 
+    _wp setWaypointCompletionRadius 60;
+    _wp setWaypointTimeout [450, 450, 450];
 }
 forEach WARCOM_zones_controled_by_BLUFOR;
 
