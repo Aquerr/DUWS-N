@@ -54,15 +54,17 @@ sleep 1;
 // MISSION COMPLETED --   ATTENDRE QUE LA TOUR SOIT KO
 waitUntil {sleep 1; !alive _tower};
 
+//remove tower
+[] spawn {
+    sleep 300;
+    deleteVehicle _tower;
+}
+
 // remove markers
 deleteMarker str(_markername2);
 deleteMarker str(_markername);
 
-//OLD
-//player removeSimpleTask _taskhandle;
-
-//NEW
-["_taskhandle", "WEST"] remoteExecCall ["BIS_fnc_deleteTask", 0, true];
+["_taskhandle", "west"] remoteExecCall ["BIS_fnc_deleteTask", 0, true];
 
 // Give cookies  (bonus & notifications)
 reward = (30 * cp_reward_multiplier);

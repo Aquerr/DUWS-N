@@ -45,14 +45,14 @@ diag_log format ["WARCOM_blufor_ap_patrol: %1", WARCOM_blufor_ap];
                 _randomZone = [];
                 _failSafe = 0;
                 while {!_found} do {
-                    _randomZone = WARCOM_zones_controled_by_BLUFOR call BIS_fnc_selectRandom;
+                    _randomZone = selectRandom WARCOM_zones_controled_by_BLUFOR;
                     _player = objNull;
                     if (isDedicated) then {
                         {
                             if (_randomZone distance _x > 2000) exitWith {
                                 _found=true;
                             };
-                        } forEach AllPlayers;
+                        } forEach allPlayers;
                     } else {
                         if (_randomZone distance player > 2000) then {_found=true;};
                     };
@@ -62,7 +62,7 @@ diag_log format ["WARCOM_blufor_ap_patrol: %1", WARCOM_blufor_ap];
                 };
               // find a zone *** end
                 _randomZone = [(_randomZone select 0)+40,_randomZone select 1];
-                _group = [_randomZone, WEST, WARCOM_blu_patrol_type,[],[],WARCOM_blu_ai_skill_range] call BIS_fnc_spawnGroup;
+                _group = [_randomZone, west, WARCOM_blu_patrol_type,[],[],WARCOM_blu_ai_skill_range] call BIS_fnc_spawnGroup;
                 [_group] call duws_fnc_WARCOM_wp_blu_patrol;
 //                  [_group,"derp"] spawn duws_fnc_WARCOM_gps_marker;
 

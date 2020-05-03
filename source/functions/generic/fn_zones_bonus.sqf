@@ -11,7 +11,7 @@ sleep 20;
         if (_editorName == _vehicleVarName) then {
             [_temp_player, "fob_support"] remoteExecCall ["BIS_fnc_addCommMenuItem", 0, true];
         }
-    } forEach AllPlayers;
+    } forEach allPlayers;
 
 } forEach game_master;
 

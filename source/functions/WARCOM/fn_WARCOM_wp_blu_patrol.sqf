@@ -9,7 +9,7 @@ _group setCombatMode "RED";
     _wp setWaypointBehaviour "SAFE";
     _wp setWaypointSpeed "LIMITED";
     _wp setWaypointCompletionRadius 60;
-    _wp setWaypointTimeout [450, 450, 450];
+    _wp setWaypointTimeout [150, 150, 150];
 }
 forEach WARCOM_zones_controled_by_BLUFOR;
 

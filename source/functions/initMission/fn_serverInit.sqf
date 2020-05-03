@@ -104,7 +104,7 @@ addMissionEventHandler ["EntityRespawned", {
 //This event handler will give FOB support command option to new leaders if FOBs are available.
 addMissionEventHandler ["TeamSwitch", {
 	params ["_previousUnit", "_newUnit"];
-	if(zoneundercontrolblu > 1) then {
+	if(zoneundercontrolblu >= 1) then {
 	    if ((isPlayer _newUnit) and (leader group _newUnit == leader _newUnit)) then {
             _slot_name = vehicleVarName _entity;
             if(_slot_name in game_master) then {
