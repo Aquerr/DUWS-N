@@ -3,10 +3,10 @@
 //         array of arrays |   array      |        number         |
 //                      array           number                  number
 
-player globalchat "Initializing WARCOM...";
+["Initializing WARCOM..."] call duws_fnc_messagePlayers;
 WARCOM_init_done = false;
 
-params 
+params
 [
 "_array_of_zones_total",
 "_blu_hq_pos",
@@ -22,7 +22,7 @@ params
 // INIT VARIABLES
 WARCOM_blu_hq_pos = [_blu_hq_pos select 0, (_blu_hq_pos select 1) + 16];
 WARCOM_op_hq_pos = _op_hq_pos;
-WARCOM_blufor_ap = _blufor_ap;    
+WARCOM_blufor_ap = _blufor_ap;
 WARCOM_opfor_ap = _opfor_ap;
 WARCOM_blu_attack_delay = _blu_attack_delay;
 WARCOM_marker_num = 0;
@@ -34,14 +34,14 @@ publicVariable "WARCOM_blufor_ap";
 
 
 
-// SORT ARRAY OF OPFOR ZONES ACCORDING TO DISTANCE FROM BLUHQ 
+// SORT ARRAY OF OPFOR ZONES ACCORDING TO DISTANCE FROM BLUHQ
 WARCOM_createdZones = [_array_of_zones_total,[WARCOM_blu_hq_pos],{_input0 distance _x},"ASCEND"] call BIS_fnc_sortBy;
 
 // ARRAY OF ZONES UNDER BLUFOR CONTROL
 WARCOM_zones_controled_by_BLUFOR = [];
 
 
-// ARRAY OF ZONES UNDER OPFOR CONTROL 
+// ARRAY OF ZONES UNDER OPFOR CONTROL
 // make sure it's not a reference
 _WARCOM_zones_controled_by_OPFOR = WARCOM_createdZones;
 WARCOM_zones_controled_by_OPFOR = [] + _WARCOM_zones_controled_by_OPFOR;
@@ -63,7 +63,5 @@ diag_log "Initialize the BLU attack waves";
 diag_log "Init the OPF attack waves";
 [] call duws_fnc_WARCOM_opf_assault;
 
-
-
 WARCOM_init_done = true;
-player globalchat "WARCOM initialized !";
+["WARCOM initialized!"] call duws_fnc_messagePlayers;

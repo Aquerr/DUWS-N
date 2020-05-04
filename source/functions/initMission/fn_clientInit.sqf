@@ -82,8 +82,8 @@ if (isMultiplayer) then {
     "capturedZonesNumber" addPublicVariableEventHandler {[] call duws_fnc_persistent_stats_zones_add;}; // change the shown CP for request dialog
     "finishedMissionsNumber" addPublicVariableEventHandler {[] call duws_fnc_persistent_stats_missions_total;}; // change the shown CP for request dialog
 
-    [(format ["Game Master: %1", game_master]), "globalChat", true, true] call BIS_fnc_MP;
-    [(format ["HQ is generated: %1", HQ_IS_GENERATED]), "globalChat", true, true] call BIS_fnc_MP;
+    [player, (format ["Game Master: %1", game_master]), "globalChat", true, true] call BIS_fnc_MP;
+    [player, (format ["HQ is generated: %1", HQ_IS_GENERATED]), "globalChat", true, true] call BIS_fnc_MP;
 
     //player globalChat format ["gamemaster: %1", game_master];
     //player globalChat format ["HQ_pos_found_generated: %1", HQ_pos_found_generated];

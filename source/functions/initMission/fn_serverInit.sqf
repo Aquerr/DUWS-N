@@ -133,6 +133,7 @@ addMissionEventHandler ["HandleDisconnect", {
     ["Started dead units removal task", "systemChat", true, true] call BIS_fnc_MP;
     _time = DUWS_Dead_Units_Removal_Time;
     while {true} do {
+        sleep 1;
         _time = _time - 1;
         if(_time < 1) then {
             ["Removing dead units...", "systemChat", true, true] call BIS_fnc_MP;

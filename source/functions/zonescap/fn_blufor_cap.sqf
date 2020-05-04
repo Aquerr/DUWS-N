@@ -8,15 +8,16 @@ zoneundercontrolblu = zoneundercontrolblu + 1;
 publicVariable "zoneundercontrolblu";
 
 // TELL THE ZONE IS UNDER BLU CONTROL
-WARCOM_zones_controled_by_BLUFOR = WARCOM_zones_controled_by_BLUFOR + [_triggerPos];
+WARCOM_zones_controled_by_BLUFOR pushBack _triggerPos;
 
 // REMOVE A ZONE FROM OPFOR CONTROL
 _index = 0;
 {
 if ((_x select 0 == _triggerPos select 0) && (_x select 1 == _triggerPos select 1) && (_x select 2 == _triggerPos select 2)) exitWith {
-WARCOM_zones_controled_by_OPFOR set [_index,-1];
-WARCOM_zones_controled_by_OPFOR = WARCOM_zones_controled_by_OPFOR - [-1];
-}; 
+    //WARCOM_zones_controled_by_OPFOR set [_index,-1];
+    WARCOM_zones_controled_by_OPFOR deleteAt _index;
+    //WARCOM_zones_controled_by_OPFOR = WARCOM_zones_controled_by_OPFOR - [-1];
+};
 _index = _index + 1;
 } forEach WARCOM_zones_controled_by_OPFOR;
 
@@ -27,7 +28,7 @@ WARCOM_blufor_ap = WARCOM_blufor_ap + _points;
 publicVariable "WARCOM_blufor_ap";
 
 // ADD Skill to operatives
-[] call operative_mission_complete; 
+[] call operative_mission_complete;
 
 // MODIFY MARKER ICON
 str(_markername) setMarkerColor "ColorGreen";
@@ -36,8 +37,8 @@ str(_markername) setMarkerColor "ColorGreen";
 str(_markername2) setMarkerColor "ColorGreen";
 
 if (hasInterface) then {
-commandpointsblu1 = commandpointsblu1 + (_points/2); 
-publicVariable "commandpointsblu1"; 
+commandpointsblu1 = commandpointsblu1 + (_points/2);
+publicVariable "commandpointsblu1";
 };
 
 ["CPadded_retaken",[(_points/2)]] call bis_fnc_showNotification;

@@ -22,17 +22,18 @@ getRandomAttackWaveType = {
 
 // Attack waves main
 [] spawn {
-          while {true} do {
-          sleep 30;
-          _waveType = call getRandomAttackWaveType;
-          _group = [WARCOM_blu_hq_pos, west, _waveType, [], [], blufor_ai_skill] call BIS_fnc_spawnGroup;
-          _TFname = [1] call duws_fnc_random_name;
-          [[[west, "Base"], format["This is HQ, We are sending Task Force %1, we will try to push as far as possible in enemy territory",_TFname]], "sideChat", true, true] call BIS_fnc_MP;
+    waitUntil {WARCOM_blufor_ap >= 20};
+    while {true} do {
+        sleep 30;
+        _waveType = call getRandomAttackWaveType;
+        _safePosition = [WARCOM_blu_hq_pos, 20, 150, 3, 0, 20, 0] call BIS_fnc_findSafePos;
+        _group = [_safePosition, west, _waveType, [], [], blufor_ai_skill] call BIS_fnc_spawnGroup;
+        _TFname = [1] call duws_fnc_random_name;
+        [[[west, "Base"], format["This is HQ, We are sending Task Force %1, we will try to push as far as possible in enemy territory",_TFname]], "sideChat", true, true] call BIS_fnc_MP;
 
-          _blu_assault = [_group] call duws_fnc_WARCOM_wp;
-          _blu_assault = [_group,_TFname] spawn duws_fnc_WARCOM_gps_marker;
+        _blu_assault = [_group] call duws_fnc_WARCOM_wp;
+        _blu_assault = [_group,_TFname] spawn duws_fnc_WARCOM_gps_marker;
 
-          sleep (WARCOM_blu_attack_delay + random (1200 - WARCOM_blufor_ap));
-
-          };
+        sleep (WARCOM_blu_attack_delay + random (1200 - WARCOM_blufor_ap));
+    };
 };

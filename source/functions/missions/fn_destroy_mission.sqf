@@ -58,7 +58,7 @@ waitUntil {sleep 1; !alive _tower};
 [] spawn {
     sleep 300;
     deleteVehicle _tower;
-}
+};
 
 // remove markers
 deleteMarker str(_markername2);
