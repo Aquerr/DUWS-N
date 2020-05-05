@@ -87,9 +87,10 @@ addMissionEventHandler ["EntityKilled", {
 
 addMissionEventHandler ["EntityRespawned", {
     params ["_entity", "_corpse"];
-    if ((isPlayer _entity) and (leader group _entity == leader _entity)) then {
+    if ((isPlayer _entity) and ((leader group _entity) == (leader _entity))) then {
         _slot_name = vehicleVarName _entity;
         if (!(_slot_name in game_master)) then {
+           [format["Added player to game_master #%1...",_slot_name], "systemChat", true, true] call BIS_fnc_MP;
             game_master pushBack _slot_name;
             publicVariable "game_master";
         };
@@ -132,15 +133,30 @@ addMissionEventHandler ["HandleDisconnect", {
 [] spawn {
     ["Started dead units removal task", "systemChat", true, true] call BIS_fnc_MP;
     _time = DUWS_Dead_Units_Removal_Time;
+
+    _realTickTime = 0;
     while {true} do {
-        sleep 1;
-        _time = _time - 1;
-        if(_time < 1) then {
-            ["Removing dead units...", "systemChat", true, true] call BIS_fnc_MP;
-            [] remoteExec duws_fnc_removeDeadEntities;
-            _time = DUWS_Dead_Units_Removal_Time;
+        _ticksBegin = round diag_tickTime;
+        if(_realTickTime >= DUWS_Dead_Units_Removal_Time) then
+        {
+            [] call duws_fnc_removeDeadEntities;
+            _realTickTime = 0;
         };
+        uiSleep 1;
+        _ticksEnd = round diag_tickTime;
+        _ticksEndLoop = round (_ticksEnd - _ticksBegin);
+        _realTickTime = _realTickTime + _ticksEndLoop;
     };
+
+    //while {true} do {
+    //    sleep 1;
+    //    _time = _time - 1;
+    //    if(_time < 1) then {
+    //        ["Removing dead units...", "systemChat", true, true] call BIS_fnc_MP;
+    //        [] remoteExec duws_fnc_removeDeadEntities;
+    //        _time = DUWS_Dead_Units_Removal_Time;
+    //    };
+    //};
 };
 
  waitUntil {CHOSEN_SETTINGS && createzone_server};

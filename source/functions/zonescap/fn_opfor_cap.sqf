@@ -6,12 +6,15 @@ amount_zones_captured = amount_zones_captured - 1;
 // remove the zone of list of zones under blu control
 _index = 0;
 {
-if ((_x select 0 == _triggerPos select 0) && (_x select 1 == _triggerPos select 1) && (_x select 2 == _triggerPos select 2)) exitWith {
+    if (_x isEqualTo _triggerPos) then {
+        WARCOM_zones_controled_by_BLUFOR deleteAt _index;
+    };
+//if ((_x select 0 == _triggerPos select 0) && (_x select 1 == _triggerPos select 1) && (_x select 2 == _triggerPos select 2)) exitWith {
     //WARCOM_zones_controled_by_BLUFOR set [_index,-1];
-    WARCOM_zones_controled_by_BLUFOR deleteAt _index;
+  //  WARCOM_zones_controled_by_BLUFOR deleteAt _index;
     //WARCOM_zones_controled_by_BLUFOR = WARCOM_zones_controled_by_BLUFOR - [-1];
-};
-_index = _index + 1;
+//};
+    _index = _index + 1;
 } forEach WARCOM_zones_controled_by_BLUFOR;
 
 // TELL THE ZONE IS UNDER OPF CONTROL
