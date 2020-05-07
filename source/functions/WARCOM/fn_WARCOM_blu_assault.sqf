@@ -34,6 +34,6 @@ getRandomAttackWaveType = {
         _blu_assault = [_group] call duws_fnc_WARCOM_wp;
         _blu_assault = [_group,_TFname] spawn duws_fnc_WARCOM_gps_marker;
 
-        sleep (WARCOM_blu_attack_delay + random (1200 - WARCOM_blufor_ap));
+        sleep (WARCOM_blu_attack_delay + random 1200);
     };
 };

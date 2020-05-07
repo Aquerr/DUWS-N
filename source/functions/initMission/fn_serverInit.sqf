@@ -125,6 +125,17 @@ addMissionEventHandler ["HandleDisconnect", {
             publicVariable "game_master";
         };
     };
+
+    _index = 0;
+    {
+        if((_x select 0) isEqualTo _name) exitWith
+        {
+            deleteMarker str(_x select 1);
+            MAP_PLAYER_MARKERS deleteAt _index;
+        };
+        _index = _index + 1;
+    } forEach MAP_PLAYER_MARKERS;
+
     true;
 }];
 
