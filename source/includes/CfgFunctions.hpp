@@ -339,6 +339,9 @@ class CfgFunctions
             class underwater_success {};
             // (in addaction) {_this call duws_fnc_underwater_success;}
 
+            class mineFieldMission {};
+            //[location] spawn duws_fnc_mineFieldMission;
+
             class missionTimer {};
             // [] spawn duws_fnc_missionTimer
             class stratmap {};

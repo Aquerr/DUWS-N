@@ -168,6 +168,24 @@ while {_counter < 6;} do {
                 ];
                 _array_of_missions = _array_of_missions + [_missionArray];
             };
+
+            case 6: {
+                _radius = 300;
+                MissionNameCase6 = [0] call duws_fnc_random_name;
+                PosOfCase6Mission = _foundSafePos;
+
+                _missionArray = [
+                    [(_foundSafePos select 0) + (random _radius) - (random _radius), (_foundSafePos select 1) + (random _radius) - (random _radius)],
+                    {_handle = [PosOfCase6Mission] spawn duws_fnc_mineFieldMission; _handle = [] spawn duws_fnc_missionTimer},
+                    MissionNameCase6,
+                    "We detected enmy minefield! You need to defuse these mines so that our army has can move there safely.",
+                    "",
+                    "\a3\ui_f\data\gui\cfg\hints\IEDs_ca.paa",
+                    1,
+                    []
+                ];
+                _array_of_missions = _array_of_missions + [_missionArray];
+            };
         };
         _counter = _counter + 1;
         _kibot_pos_array_missionPos = _kibot_pos_array_missionPos + [_foundSafePos];
