@@ -10,7 +10,7 @@ if (!((vehicleVarName player) in game_master)) exitWith {hint "Only squad leader
 startLoadingScreen ["Loading zones..."];
 _kibot_pos_array_missionPos = [[-99999,-99999,-99999]];
 
-while {_counter < 6;} do {
+while {_counter < 7;} do {
     _foundSafePos = [center_of_map, 0,half_of_map,5,0,0.1,0] call BIS_fnc_findSafePos;
 
     _array_exist = true;
