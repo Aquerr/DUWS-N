@@ -7,7 +7,7 @@
 private ["_missionPos"];
 
 _radius = 150;
-_randompos = [(_missionpos select 0)+(random _radius)-(random _radius), (_missionpos select 1)+(random _radius)-(random _radius)];
+_randompos = [(_missionPos select 0)+(random _radius)-(random _radius), (_missionPos select 1)+(random _radius)-(random _radius)];
 
 // CREATE NAME
 _mission_name = MissionNameCase6;
@@ -39,7 +39,7 @@ for "_i" from 1 to _minesToDisarmCount do
 };
 
 // Create task and notify game.
-_VARtaskgeneratedName = format["tsksabot%1%2",round(_MissionPos select 0),round(_Missionpos select 1)]; // generate variable name for task
+//_VARtaskgeneratedName = format["tsksabot%1%2",round(_missionPos select 0),round(_missionPos select 1)]; // generate variable name for task
 [west, "_taskhandle", ["We detected enmy minefield! You need to defuse these mines so that our army has can move there safely.", "Enemy mines!"], objNull, true] call BIS_fnc_taskCreate;
 
 ["TaskAssigned",["",_mission_name]] call bis_fnc_showNotification;
@@ -65,7 +65,7 @@ waitUntil
     } forEach _mines;
 
     _minesToDisarmCount == (count _disarmedMines);
-}
+};
 
 if (!isMultiplayer) then {
     [] spawn duws_fnc_autoSave;

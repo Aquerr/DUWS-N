@@ -172,7 +172,7 @@ while {_counter < 7;} do {
             case 6: {
                 _radius = 300;
                 MissionNameCase6 = [0] call duws_fnc_random_name;
-                PosOfCase6Mission = _foundSafePos;
+                PosOfCase6Mission = _foundSafepos;
 
                 _missionArray = [
                     [(_foundSafePos select 0) + (random _radius) - (random _radius), (_foundSafePos select 1) + (random _radius) - (random _radius)],
