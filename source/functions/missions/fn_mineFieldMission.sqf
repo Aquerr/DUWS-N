@@ -4,9 +4,12 @@
 	returns: nothing
 */
 
-private ["_missionPos"];
+params ["_missionPos"];
 
-_radius = 150;
+systemChat "Generating minefield...";
+systemChat format ["MissionPos: %1", _missionPos];
+
+_radius = 100;
 _randompos = [(_missionPos select 0)+(random _radius)-(random _radius), (_missionPos select 1)+(random _radius)-(random _radius)];
 
 // CREATE NAME
@@ -18,7 +21,7 @@ _markerstr = createMarker [str(_markername), _randompos];
 _markerstr setMarkerShape "ICON";
 str(_markername) setMarkerType "Minefield";
 str(_markername) setMarkerColor "ColorOPFOR";
-str(_markername) setMarkerText "Defuse";
+str(_markername) setMarkerText "Disarm";
 
 // CREATE MARKER (ELLIPSE ZONE)
 _markername2 = format["%1%2ellipseresc",round(_randompos select 0),round(_randompos select 1)]; // Define marker name
@@ -29,14 +32,18 @@ str(_markername2) setMarkerColor "ColorOPFOR";
 str(_markername2) setMarkerSize [_radius, _radius];
 str(_markername2) setMarkerAlpha 0.3;
 
+systemChat "Created Markers...";
+
 // Spawn mines
 _mines = [];
-_minesToDisarmCount = 10;
-for "_i" from 1 to _minesToDisarmCount do
+_minesToDisarmCount = 5;
+for "_i" from 0 to _minesToDisarmCount do
 {
-    _mine = createMine ["APERSMine", _randompos, [], 50];
+    _mine = createMine ["APERSMine", _randompos, [], 75];
     _mines pushBack _mine;
 };
+
+systemChat "Spawned mines";
 
 // Create task and notify game.
 //_VARtaskgeneratedName = format["tsksabot%1%2",round(_missionPos select 0),round(_missionPos select 1)]; // generate variable name for task
@@ -53,19 +60,29 @@ if (!isMultiplayer) then {
 };
 
 // Check if mines are defused
-_disarmedMines = [];
+_disarmedMinesCount = 0;
 
 waitUntil
 {
     sleep 5;
     {
-        if(!(mineActive _x) and !(_x in _disarmedMines)) then {
-            _disarmedMines pushBack _x;
+        _index = 0;
+        if(!(mineActive _x)) then {
+            systemChat format ["Not active mine: %1", _x];
+            systemChat format ["Mine index: %1", _index];
+            _disarmedMinesCount = _disarmedMinesCount + 1;
+            _mines deleteAt _index;
+            _index = _index - 1;
+            systemchat format ["Mines: %1", _mines];
         };
+        _index = _index + 1;
     } forEach _mines;
 
-    _minesToDisarmCount == (count _disarmedMines);
+    systemChat format["Disarmed mines: %1", _disarmedMinesCount];
+    _minesToDisarmCount == _disarmedMinesCount;
 };
+
+systemChat "Mission Completed!";
 
 if (!isMultiplayer) then {
     [] spawn duws_fnc_autoSave;

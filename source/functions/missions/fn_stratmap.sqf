@@ -175,7 +175,7 @@ while {_counter < 7;} do {
                 PosOfCase6Mission = _foundSafepos;
 
                 _missionArray = [
-                    [(_foundSafePos select 0) + (random _radius) - (random _radius), (_foundSafePos select 1) + (random _radius) - (random _radius)],
+                    [(_foundSafepos select 0) + (random _radius) - (random _radius), (_foundSafepos select 1) + (random _radius) - (random _radius)],
                     {_handle = [PosOfCase6Mission] spawn duws_fnc_mineFieldMission; _handle = [] spawn duws_fnc_missionTimer},
                     MissionNameCase6,
                     "We detected enmy minefield! You need to defuse these mines so that our army has can move there safely.",
