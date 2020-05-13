@@ -124,3 +124,6 @@ publicVariable "game_master";
 // Array of arrays = mainly used as a mapping data type.
 // Should take an array as input where first element is player's profile name and second is the marker name.
 MAP_PLAYER_MARKERS = [[]];
+
+//Missions tasks names
+MISSIONS_TASK_NAMES = [];

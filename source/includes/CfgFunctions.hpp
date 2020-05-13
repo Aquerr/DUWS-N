@@ -112,6 +112,10 @@ class CfgFunctions
             // [] spawn duws_fnc_removeDeadEntities
             class messagePlayers {};
             // [message] call duws_fnc_messagePlayers
+            class getNewTaskName {};
+            // [baseTaskName] call duws_fnc_getNewTaskName
+            class releaseTaskName {};
+            // [taskName] spawn duws_fnc_releaseTaskName
         };
 
         class WARCOM
