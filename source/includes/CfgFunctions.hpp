@@ -116,6 +116,8 @@ class CfgFunctions
             // [baseTaskName] call duws_fnc_getNewTaskName
             class releaseTaskName {};
             // [taskName] spawn duws_fnc_releaseTaskName
+            class takeControlOfTaskForceGroup {};
+            // [player] spawn duws_fnc_takeControlOfTaskForceGroup
         };
 
         class WARCOM

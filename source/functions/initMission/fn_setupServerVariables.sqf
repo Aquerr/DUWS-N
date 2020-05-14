@@ -127,3 +127,5 @@ MAP_PLAYER_MARKERS = [[]];
 
 //Missions tasks names
 MISSIONS_TASK_NAMES = [];
+
+TASK_FORCE_LIST = [];

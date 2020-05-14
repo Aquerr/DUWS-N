@@ -28,6 +28,7 @@ getRandomAttackWaveType = {
         _waveType = call getRandomAttackWaveType;
         _safePosition = [WARCOM_blu_hq_pos, 20, 150, 3, 0, 20, 0] call BIS_fnc_findSafePos;
         _group = [_safePosition, west, _waveType, [], [], blufor_ai_skill] call BIS_fnc_spawnGroup;
+        TASK_FORCE_LIST pushBack _group;
         _TFname = [1] call duws_fnc_random_name;
         [[[west, "Base"], format["This is HQ, We are sending Task Force %1, we will try to push as far as possible in enemy territory",_TFname]], "sideChat", true, true] call BIS_fnc_MP;
 
