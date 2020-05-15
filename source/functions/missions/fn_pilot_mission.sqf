@@ -1,8 +1,8 @@
-params ["_MissionPos"];
-_initpos = getpos hq_blu1;
+params ["_missionPos"];
+_basePosition = getPos hq_blu1;
 // define random pos AROUND TARGET. spawn markers at random.
 _radius = 175;
-_randompos = [(_missionpos select 0)+(random _radius)-(random _radius), (_missionpos select 1)+(random _radius)-(random _radius)];
+_randompos = [(_missionPos select 0)+(random _radius)-(random _radius), (_missionPos select 1)+(random _radius)-(random _radius)];
 
 // CREATE NAME
 _mission_name = MissionNameCase4;
@@ -33,55 +33,72 @@ sleep 1;
 [_randompos, _radius] call duws_fnc_createopteam;
 
 // CREATE WRECK
-_choppa = Blufor_Helowreck createVehicle (_missionpos);
+_choppa = Blufor_Helowreck createVehicle (_missionPos);
 
 _group = createGroup west; // CREATE PILOT
-_pilot = _group createUnit [Blufor_Heli_Pilot, [_missionpos select 0, (_missionpos select 1)+2], [], 0, "FORM"];
+_pilot = _group createUnit [Blufor_Heli_Pilot, [_missionPos select 0, (_missionPos select 1)+2], [], 0, "NONE"];
 _pilot setcaptive true;
 _pilot switchMove "acts_CrouchingIdleRifle01";
-
-// TASK AND NOTIFICATION
-//_taskhandle = player createSimpleTask ["taskPilot"];
-//_taskhandle setSimpleTaskDescription ["One of our AH-99 helicopters has been downed somewhere around this area. We have reports that the pilot is still alive. You must find him and bring him back to base.",_mission_name,""];
-//_taskhandle setSimpleTaskDestination (getMarkerPos str(_markername));/
 
 if (!ismultiplayer) then {
     [] spawn duws_fnc_autoSave;
 };
 
-[west, "_taskhandle", ["One of our AH-99 helicopters has been downed somewhere around this area. We have reports that the pilot is still alive. You must find him and bring him back to base.", "Downed Pilot", "(getMarkerPos str(_markername)"], objNull, true] call BIS_fnc_taskCreate;
+_pilotTaskName = ["pilotTask"] call duws_fnc_getNewTaskName;
+_pilotTask = [west, _pilotTaskName, ["One of our AH-99 helicopters has been downed somewhere around this area. We have reports that the pilot is still alive. You must find him and bring him back to base.", "Downed Pilot", "(getMarkerPos str(_markername)"], objNull, true];
+_pilotTask call BIS_fnc_taskCreate;
 
-["TaskAssigned",["",_mission_name]] call bis_fnc_showNotification;
+["TaskAssigned", ["", _mission_name]] call bis_fnc_showNotification;
 
-// PLAYER IS WITH THE PILOT --
-waitUntil {sleep 1; (player distance _pilot)<6 OR !(alive _pilot)};
+// Player is with pilot or pilot is dead.
+_nearestPlayer = objNull;
+waitUntil
+{
+    sleep 1;
+
+    _result = false;
+    if(!(alive _pilot)) then {
+        _result = true;
+    };
+
+    {
+        if((_x distance _pilot) < 6) then {
+            _result = true;
+            _nearestPlayer = _x;
+        };
+    } forEach allPlayers;
+
+    _result;
+};
 
 // CHECK IF PILOT ALIVE
 if (!(alive _pilot)) exitWith {
     deleteMarker str(_markername2);
     deleteMarker str(_markername);
 
-    //player removeSimpleTask _taskhandle;
-    ["_taskhandle", "WEST"] remoteExecCall ["BIS_fnc_deleteTask", 0, true];
+    [_pilotTaskName, "WEST"] remoteExecCall ["BIS_fnc_deleteTask", 0, true];
 
     ["TaskFailed",["","The pilot is dead"]] call bis_fnc_showNotification;
 };
 
-_pilot setcaptive false;
+_pilot setCaptive false;
 _pilot switchMove "AidlPknlMstpSrasWrflDnon_AI";
-[_pilot] joinSilent player;
+[_pilot] joinSilent _nearestPlayer;
 titleText ["Thanks sir, this place is crawling with OPFOR forces, bring me back to base", "PLAIN DOWN"];
 
 // PLAYER IS AT BASE WITH PILOT OR PILOT DEAD --
-waitUntil {sleep 1; (_pilot distance _initpos)<50 OR !(alive _pilot)};
+waitUntil
+{
+    sleep 1;
+    (_pilot distance _basePosition) < 50 or !(alive _pilot)
+};
 
 // CHECK IF PILOT ALIVE
 if (!(alive _pilot)) exitWith {
     deleteMarker str(_markername2);
     deleteMarker str(_markername);
 
-    //player removeSimpleTask _taskhandle;
-    ["_taskhandle", "WEST"] remoteExecCall ["BIS_fnc_deleteTask", 0, true];
+    [_pilotTaskName, "WEST"] remoteExecCall ["BIS_fnc_deleteTask", 0, true];
     ["TaskFailed",["","The pilot is dead"]] call bis_fnc_showNotification;
 };
 
@@ -89,12 +106,21 @@ if (!(alive _pilot)) exitWith {
 deleteMarker str(_markername2);
 deleteMarker str(_markername);
 
-player removeSimpleTask _taskhandle;
-
 sleep 1;
+
+[_pilotTaskName, "SUCCEEDED"] remoteExecCall ["BIS_fnc_taskSetState", 0, true];
 
 titleText ["Home, sweet home! Thanks for the rescue.", "PLAIN DOWN"];
 deleteVehicle _pilot;
+
+[_pilotTaskName, "west"] remoteExecCall ["BIS_fnc_deleteTask", 0, true];
+
+//delete the helicopter wreck
+[] spawn {
+    sleep 300;
+    deleteVehicle _choppa;
+};
+
 
 // Give cookies  (bonus & notifications)
 reward = (20 * cp_reward_multiplier);
