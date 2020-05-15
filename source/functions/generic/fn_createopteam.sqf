@@ -5,7 +5,7 @@ params["_position","_radius"];
 
 // hint format["%1",_position];
 
-_group = [_position, EAST, [Opfor_Teamleader,Opfor_Autorifleman,Opfor_Rifleman_AT,Opfor_Grenadier],[],[],opfor_ai_skill] call BIS_fnc_spawnGroup;
+_group = [_position, EAST, [Opfor_Teamleader,Opfor_Rifleman_AT,Opfor_Grenadier,Opfor_AA_Specialist],[],[],opfor_ai_skill] call BIS_fnc_spawnGroup;
 _patrolRadius = round(_radius/2);
 [_group, _position, _patrolradius] call bis_fnc_taskPatrol;
 

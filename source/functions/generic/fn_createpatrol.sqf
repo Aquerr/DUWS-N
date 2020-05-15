@@ -3,6 +3,6 @@
 
 params ["_position","_radius"];
 
-_group = [_position, WEST, [Blufor_Teamleader,Blufor_Rifleman]] call BIS_fnc_spawnGroup;
+_group = [_position, WEST, [Blufor_Teamleader,Blufor_Rifleman,Blufor_AT_Specialist]] call BIS_fnc_spawnGroup;
 _patrolRadius = round(_radius/3);
 [_group, _position, _patrolRadius] call bis_fnc_taskPatrol;
